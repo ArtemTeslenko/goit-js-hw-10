@@ -18,4 +18,17 @@ body {
   padding: 8px;
 }
 
+.country-list, .country-inform {
+  list-style: none;
+}
+
+li, .header-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.description {
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=index.77a9bc14.css.map */
