@@ -534,25 +534,29 @@ function hmrAcceptRun(bundle, id) {
 },{}],"8lqZg":[function(require,module,exports) {
 var _stylesCss = require("./css/styles.css");
 var _fetchCountries = require("./js/fetchCountries");
+var _rendering = require("./js/rendering");
 const debounce = require("lodash.debounce");
-const DEBOUNCE_DELAY = 1000;
+const DEBOUNCE_DELAY = 300;
 const inputEl = document.querySelector("#search-box");
 inputEl.addEventListener("input", debounce(onInput, DEBOUNCE_DELAY));
 function onInput(e) {
     const val = e.target.value.trim();
     if (val) (0, _fetchCountries.fetchCountries)(val);
+    else _rendering.resetMarkup();
 }
 
-},{"./css/styles.css":"1CY4s","./js/fetchCountries":"dKuy9","lodash.debounce":"3JP5n"}],"1CY4s":[function() {},{}],"dKuy9":[function(require,module,exports) {
+},{"./css/styles.css":"1CY4s","./js/fetchCountries":"dKuy9","lodash.debounce":"3JP5n","./js/rendering":"dTezw"}],"1CY4s":[function() {},{}],"dKuy9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "fetchCountries", ()=>fetchCountries);
 var _rendering = require("./rendering");
 var _notifications = require("./notifications");
+const COUNTRY_ROUTE = "https://restcountries.com/v3.1/name/";
 function fetchCountries(name) {
-    fetch(`https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`).then((response)=>{
+    fetch(`${COUNTRY_ROUTE}${name}?fields=name,capital,population,flags,languages`).then((response)=>{
         if (response.status === 404) {
             _notifications.onFetchError();
+            _rendering.resetMarkup();
             return [];
         }
         return response.json();
@@ -602,10 +606,17 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "countriesListRendering", ()=>countriesListRendering);
 parcelHelpers.export(exports, "countryInformationRendering", ()=>countryInformationRendering);
+parcelHelpers.export(exports, "resetMarkup", ()=>resetMarkup);
 var _variables = require("./variables");
+function countriesListMarkup(item) {
+    return `<li><img src = "${item.flags.svg}" width="20px" height="100%" alt = "${item.name.official}"></img><p>${item.name.official}</p></li>`;
+}
+function countryInformationMarkup(objData) {
+    return `<div class="header-wrapper"><img src="${objData.flags.svg}" width="40px" height="100%" alt = ""></img><h1>${objData.name.official}</h1></div><ul class="country-inform"><li><span class="description">Capital:</span>${objData.capital}</li><li><span class="description">Population:</span>${objData.population}</li><li><span class="description">Languages:</span>${Object.values(objData.languages)}</li></ul>`;
+}
 function countriesListRendering(data) {
     if (data.length > 1) {
-        const markup = data.reduce((acc, item)=>acc + `<li><img src = "${item.flags.svg}" width="20px" height="100%" alt = "${item.name.official}"></img><p>${item.name.official}</p></li>`, "");
+        const markup = data.reduce((acc, item)=>acc + countriesListMarkup(item), "");
         (0, _variables.refs).countryContainerEl.innerHTML = "";
         (0, _variables.refs).listEl.innerHTML = markup;
     }
@@ -613,10 +624,14 @@ function countriesListRendering(data) {
 function countryInformationRendering(data) {
     if (data.length === 1) {
         const objData = data[0];
-        const markup = `<div class="header-wrapper"><img src="${objData.flags.svg}" width="40px" height="100%" alt = ""></img><h1>${objData.name.official}</h1></div><ul class="country-inform"><li><span class="description">Capital:</span>${objData.capital}</li><li><span class="description">Population:</span>${objData.population}</li><li><span class="description">Languages:</span>${Object.values(objData.languages)}</li></ul>`;
+        const markup = countryInformationMarkup(objData);
         (0, _variables.refs).listEl.innerHTML = "";
         (0, _variables.refs).countryContainerEl.innerHTML = markup;
     }
+}
+function resetMarkup() {
+    (0, _variables.refs).countryContainerEl.innerHTML = "";
+    (0, _variables.refs).listEl.innerHTML = "";
 }
 
 },{"./variables":"abb56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"abb56":[function(require,module,exports) {

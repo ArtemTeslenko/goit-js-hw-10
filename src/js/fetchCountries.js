@@ -1,13 +1,16 @@
 import * as renderingFn from "./rendering";
 import * as notificationsFn from "./notifications";
 
+const COUNTRY_ROUTE = "https://restcountries.com/v3.1/name/";
+
 export function fetchCountries(name) {
   fetch(
-    `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
+    `${COUNTRY_ROUTE}${name}?fields=name,capital,population,flags,languages`
   )
     .then((response) => {
       if (response.status === 404) {
         notificationsFn.onFetchError();
+        renderingFn.resetMarkup();
         return [];
       }
       return response.json();

@@ -19,6 +19,7 @@ body {
 }
 
 .country-list, .country-inform {
+  padding: 0;
   list-style: none;
 }
 
@@ -29,6 +30,19 @@ li, .header-wrapper {
 
 .description {
   font-weight: bold;
+}
+
+img {
+  margin-right: 10px;
+  display: block;
+}
+
+h1, p {
+  margin: 0;
+}
+
+li:not(:last-of-type) {
+  margin-bottom: 10px;
 }
 
 /*# sourceMappingURL=index.77a9bc14.css.map */

@@ -22,6 +22,7 @@ body {
 .country-list,
 .country-inform {
   list-style: none;
+  padding: 0;
 }
 
 li {
@@ -36,4 +37,18 @@ li {
 
 .description {
   font-weight: bold;
+}
+
+img {
+  display: block;
+  margin-right: 10px;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+li:not(:last-of-type) {
+  margin-bottom: 10px;
 }
