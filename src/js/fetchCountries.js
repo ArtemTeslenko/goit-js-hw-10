@@ -1,21 +1,23 @@
-import * as renderingFn from "./rendering";
-import * as notificationsFn from "./notifications";
+import * as renderingFn from './rendering';
+import * as notificationsFn from './notifications';
 
-const COUNTRY_ROUTE = "https://restcountries.com/v3.1/name/";
+const COUNTRY_ROUTE = 'https://restcountries.com/v3.1/name/';
 
 export function fetchCountries(name) {
   fetch(
     `${COUNTRY_ROUTE}${name}?fields=name,capital,population,flags,languages`
   )
-    .then((response) => {
+    .then(response => {
       if (response.status === 404) {
-        notificationsFn.onFetchError();
-        renderingFn.resetMarkup();
-        return [];
+        throw new Error(response.status);
       }
       return response.json();
     })
-    .then(rendering);
+    .then(rendering)
+    .catch(() => {
+      notificationsFn.onFetchError();
+      renderingFn.resetMarkup();
+    });
 }
 
 function rendering(data) {

@@ -525,13 +525,12 @@ var _notifications = require("./notifications");
 const COUNTRY_ROUTE = "https://restcountries.com/v3.1/name/";
 function fetchCountries(name) {
     fetch(`${COUNTRY_ROUTE}${name}?fields=name,capital,population,flags,languages`).then((response)=>{
-        if (response.status === 404) {
-            _notifications.onFetchError();
-            _rendering.resetMarkup();
-            return [];
-        }
+        if (response.status === 404) throw new Error(response.status);
         return response.json();
-    }).then(rendering);
+    }).then(rendering).catch(()=>{
+        _notifications.onFetchError();
+        _rendering.resetMarkup();
+    });
 }
 function rendering(data) {
     if (data.length > 10) {
