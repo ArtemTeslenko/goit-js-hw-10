@@ -1,7 +1,7 @@
 {
   "name": "goit-js-hw-10",
   "version": "2.0.0",
-  "description": "test",
+  "description": "",
   "homepage": "https://github.com/ArtemTeslenko/goit-js-hw-10#readme",
   "scripts": {
     "start": "parcel src/*.html",
@@ -17,16 +17,16 @@
   "bugs": {
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.5"
+  },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
     "parcel": "^2.7.0",
     "parcel-reporter-clean-dist": "^1.0.4",
     "posthtml-include": "^1.7.4"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-  "dependencies": {
-    "handlebars": "^4.7.7",
-    "lodash.debounce": "^4.0.8",
-    "notiflix": "^3.2.5"
-  }
+  "browserslist": "> 0.5%, last 2 versions, not dead"
 }
