@@ -569,6 +569,7 @@ function rendering(data) {
     }
     if (data.length > 1) _rendering.countriesListRendering(data);
     if (data.length === 1) _rendering.countryInformationRendering(data);
+    if (data.length === 0) return;
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./rendering":"dTezw","./notifications":"1jGVB"}],"gkKU3":[function(require,module,exports) {

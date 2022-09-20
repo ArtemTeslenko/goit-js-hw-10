@@ -29,4 +29,7 @@ function rendering(data) {
   if (data.length === 1) {
     renderingFn.countryInformationRendering(data);
   }
+  if (data.length === 0) {
+    return;
+  }
 }
