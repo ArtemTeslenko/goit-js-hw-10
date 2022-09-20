@@ -1,7 +1,7 @@
 {
   "name": "goit-js-hw-10",
   "version": "2.0.0",
-  "description": "",
+  "description": "test",
   "homepage": "https://github.com/ArtemTeslenko/goit-js-hw-10#readme",
   "scripts": {
     "start": "parcel src/*.html",
